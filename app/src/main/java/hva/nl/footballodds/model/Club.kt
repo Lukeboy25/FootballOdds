@@ -16,7 +16,10 @@ data class Club (
     var name: String,
 
     @ColumnInfo(name = "image_url")
-    @DrawableRes var imageUrl: Int
+    @DrawableRes var imageUrl: Int,
+
+    @ColumnInfo(name = "is_favorite")
+    var isFavorite: Boolean?
 ) {
     companion object {
         val CLUB_NAMES = arrayOf(

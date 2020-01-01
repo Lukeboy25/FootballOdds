@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import hva.nl.footballodds.api.FootballMatchesList
 import hva.nl.footballodds.model.Club
@@ -43,6 +44,7 @@ class HomeFragment : Fragment() {
         val rvMatches = rootView.findViewById(R.id.rvMatches) as RecyclerView
         rvMatches.layoutManager = LinearLayoutManager(activity)
         rvMatches.adapter = footballAdapter
+        rvMatches.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
         initViewModel()
 

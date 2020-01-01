@@ -32,4 +32,10 @@ class ClubViewModel(application: Application) : AndroidViewModel(application) {
             clubRepository.deleteAllClubs()
         }
     }
+
+    fun triggerFavoriteClub(clubName: String, isFavorite: Boolean) {
+        ioScope.launch {
+            clubRepository.triggerFavoriteClub(clubName, isFavorite)
+        }
+    }
 }

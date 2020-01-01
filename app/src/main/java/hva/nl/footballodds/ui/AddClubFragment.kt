@@ -49,7 +49,7 @@ class AddClubFragment : Fragment() {
 
     private fun onAddNewClub() {
         if (validateEmptyFields()) {
-            val club = Club(null, etClubName.text.toString(), R.drawable.logo_groot_adodenhaag)
+            val club = Club(null, etClubName.text.toString(), R.drawable.logo_groot_adodenhaag, false)
             viewModel.addClub(club)
 
             Toast.makeText(activity, "Successfully added a new club: " + club.name, Toast.LENGTH_SHORT).show()

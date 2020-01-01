@@ -20,7 +20,7 @@ class ClubFragment : Fragment() {
     private val clubs = arrayListOf<Club>()
     private lateinit var viewModel: ClubViewModel
 
-    private val clubAdapter = ClubAdapter(clubs)
+    private val clubAdapter = ClubAdapter(clubs) { club -> onFavoriteClub(club) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +52,7 @@ class ClubFragment : Fragment() {
 //        viewModel.deleteAllClubs()
 //
 //        for (i in Club.CLUB_NAMES.indices) {
-//            viewModel.addClub(Club(null, Club.CLUB_NAMES[i], Club.CLUB_LOGO_IDS[i]))
+//            viewModel.addClub(Club(null, Club.CLUB_NAMES[i], Club.CLUB_LOGO_IDS[i], false))
 //        }
 
     }
@@ -87,5 +87,9 @@ class ClubFragment : Fragment() {
         ivAddClub.setOnClickListener {
             findNavController().navigate(R.id.action_clubFragment_to_addClubFragment)
         }
+    }
+
+    private fun onFavoriteClub(club: Club) {
+        viewModel.triggerFavoriteClub(club.name, club.isFavorite!!)
     }
 }

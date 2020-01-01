@@ -28,4 +28,9 @@ class ClubRepository(context: Context) {
     suspend fun addClub(club: Club) {
         clubDao.addClub(club)
     }
+
+    fun triggerFavoriteClub(clubName: String, isFavorite: Boolean) {
+        val newFavoriteValue = !isFavorite
+        clubDao.updateClubTriggerFavorite(clubName, newFavoriteValue)
+    }
 }
