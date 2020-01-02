@@ -1,4 +1,4 @@
-package hva.nl.footballodds.ui
+package hva.nl.footballodds.ui.fragments
 
 
 import android.app.Activity
@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import hva.nl.footballodds.R
 import hva.nl.footballodds.model.Club
+import hva.nl.footballodds.ui.ClubViewModel
 import kotlinx.android.synthetic.main.fragment_add_club.*
 
 /**

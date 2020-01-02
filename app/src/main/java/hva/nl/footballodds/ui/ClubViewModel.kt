@@ -14,6 +14,7 @@ class ClubViewModel(application: Application) : AndroidViewModel(application) {
     private val clubRepository = ClubRepository(application.applicationContext)
 
     val clubs: LiveData<List<Club>> = clubRepository.getAllClubs()
+    val favoriteClubs: LiveData<List<Club>> = clubRepository.getFavoriteClubs()
 
     fun addClub(club: Club) {
         ioScope.launch {

@@ -10,4 +10,9 @@
         android:id="@+id/clubFragment"
         android:icon="@drawable/club"
         android:title="@string/clubs" />
+    <item
+        android:id="@+id/favoriteFragment"
+        android:icon="@drawable/favorite_icon"
+        android:title="@string/my_matches" />
+
 </menu>

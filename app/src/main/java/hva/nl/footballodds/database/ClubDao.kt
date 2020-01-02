@@ -9,6 +9,9 @@ interface ClubDao {
     @Query("SELECT * FROM club_table")
     fun getAllClubs(): LiveData<List<Club>>
 
+    @Query("SELECT * FROM club_table WHERE is_favorite = 1")
+    fun getFavoriteClubs(): LiveData<List<Club>>
+
     @Delete
     fun deleteClub(club: Club)
 

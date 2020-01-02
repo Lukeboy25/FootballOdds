@@ -1,4 +1,4 @@
-package hva.nl.footballodds.ui
+package hva.nl.footballodds.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import hva.nl.footballodds.*
 import hva.nl.footballodds.model.Club
+import hva.nl.footballodds.ui.adapters.ClubAdapter
+import hva.nl.footballodds.ui.ClubViewModel
 import kotlinx.android.synthetic.main.fragment_club.*
 
 class ClubFragment : Fragment() {

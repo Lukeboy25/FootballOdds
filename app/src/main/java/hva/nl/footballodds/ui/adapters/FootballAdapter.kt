@@ -1,4 +1,4 @@
-package hva.nl.footballodds.ui
+package hva.nl.footballodds.ui.adapters
 
 import android.content.Context
 import android.os.Build

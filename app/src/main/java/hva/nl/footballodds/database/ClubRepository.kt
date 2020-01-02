@@ -17,6 +17,10 @@ class ClubRepository(context: Context) {
         return clubDao.getAllClubs()
     }
 
+    fun getFavoriteClubs(): LiveData<List<Club>> {
+        return clubDao.getFavoriteClubs()
+    }
+
     fun deleteClub(club: Club) {
         clubDao.deleteClub(club)
     }

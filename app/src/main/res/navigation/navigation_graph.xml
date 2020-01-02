@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/clubFragment">
+    app:startDestination="@id/favoriteFragment">
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="hva.nl.footballodds.ui.HomeFragment"
+        android:name="hva.nl.footballodds.ui.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/clubFragment"
-        android:name="hva.nl.footballodds.ui.ClubFragment"
+        android:name="hva.nl.footballodds.ui.fragments.ClubFragment"
         android:label="fragment_club"
         tools:layout="@layout/fragment_club" >
         <action
@@ -21,11 +21,16 @@
     </fragment>
     <fragment
         android:id="@+id/addClubFragment"
-        android:name="hva.nl.footballodds.ui.AddClubFragment"
+        android:name="hva.nl.footballodds.ui.fragments.AddClubFragment"
         android:label="fragment_add_club"
         tools:layout="@layout/fragment_add_club" >
         <action
             android:id="@+id/action_addClubFragment_to_clubFragment"
             app:destination="@id/clubFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="hva.nl.footballodds.ui.fragments.FavoriteClubFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite_matches" />
 </navigation>

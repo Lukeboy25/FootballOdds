@@ -1,6 +1,5 @@
-package hva.nl.footballodds.ui
+package hva.nl.footballodds.ui.fragments
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,12 +15,14 @@ import hva.nl.footballodds.api.FootballMatchesList
 import hva.nl.footballodds.model.Club
 import androidx.recyclerview.widget.LinearLayoutManager
 import hva.nl.footballodds.*
+import hva.nl.footballodds.ui.ClubViewModel
+import hva.nl.footballodds.ui.adapters.FootballAdapter
+import hva.nl.footballodds.ui.FootballViewModel
+import hva.nl.footballodds.ui.MainActivity
 
 /**
  * The Fragment with the responsibility to initialize the list of matches.
  */
-
-const val DETAIL_MATCH_CODE = 100
 
 @RequiresApi(Build.VERSION_CODES.O)
 class HomeFragment : Fragment() {
@@ -30,9 +31,8 @@ class HomeFragment : Fragment() {
     private lateinit var footballViewModel: FootballViewModel
     private lateinit var clubViewModel: ClubViewModel
 
-    private val footballAdapter =
-        FootballAdapter(matchesItems, clubs) { matchItem ->
-            onDetailMatch(matchItem)
+    private val footballAdapter = FootballAdapter(matchesItems, clubs) { matchItem ->
+            (activity as MainActivity).onDetailMatch(matchItem)
         }
 
     override fun onCreateView(
@@ -46,20 +46,20 @@ class HomeFragment : Fragment() {
         rvMatches.adapter = footballAdapter
         rvMatches.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
 
-        initViewModel()
+        initViewModels()
 
         footballViewModel.getFootballMatches()
 
         return rootView
     }
 
-    private fun initViewModel() {
+    private fun initViewModels() {
         footballViewModel = ViewModelProviders.of(this).get(FootballViewModel::class.java)
         clubViewModel = ViewModelProviders.of(this).get(ClubViewModel::class.java)
 
         footballViewModel.matches.observe(this, Observer { matches ->
             matchesItems.clear()
-            matches.data?.forEach { movie -> matchesItems.add(movie) }
+            matches.data?.forEach { match -> matchesItems.add(match) }
             footballAdapter.notifyDataSetChanged()
         })
 
@@ -68,26 +68,5 @@ class HomeFragment : Fragment() {
             this@HomeFragment.clubs.addAll(clubs)
             footballAdapter.notifyDataSetChanged()
         })
-    }
-
-    private fun onDetailMatch(matchItem : FootballMatchesList.Matches) {
-        val intent = Intent(activity!!.baseContext, DetailMatch::class.java)
-        val firstMatchOdds = matchItem.sites!![0].odds.h2h
-        val date = DateFormatter.getCorrectDate(matchItem.commence_time)
-
-        intent.putExtra("homeTeam", matchItem.teams[0])
-        intent.putExtra("awayTeam", matchItem.teams[1])
-        for (club in clubs) {
-            if (club.name == matchItem.teams[0]) {
-                intent.putExtra("homeLogo", club.imageUrl)
-            } else if (club.name == matchItem.teams[1]) {
-                intent.putExtra("awayLogo", club.imageUrl)
-            }
-        }
-        intent.putExtra("homeOdd", String.format("%.2f", firstMatchOdds[0]))
-        intent.putExtra("awayOdd", String.format("%.2f", firstMatchOdds[1]))
-        intent.putExtra("drawOdd", String.format("%.2f", firstMatchOdds[2]))
-        intent.putExtra("date", DateFormatter.formatDutchDateLong(date))
-        startActivityForResult(intent, DETAIL_MATCH_CODE)
     }
 }
