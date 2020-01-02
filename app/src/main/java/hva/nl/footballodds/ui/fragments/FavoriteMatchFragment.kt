@@ -22,7 +22,7 @@ import hva.nl.footballodds.ui.adapters.FootballAdapter
  * Fragment that show your personal favorite matches based on club.
  */
 @RequiresApi(Build.VERSION_CODES.O)
-class FavoriteClubFragment : Fragment() {
+class FavoriteMatchFragment : Fragment() {
     private val favoriteMatchItems = arrayListOf<FootballMatchesList.Matches>()
     private val clubs = arrayListOf<Club>()
     private val favoriteClubs = arrayListOf<Club>()
@@ -55,13 +55,13 @@ class FavoriteClubFragment : Fragment() {
         clubViewModel = ViewModelProviders.of(this).get(ClubViewModel::class.java)
 
         clubViewModel.favoriteClubs.observe(this, Observer { favoriteClubs ->
-            this@FavoriteClubFragment.favoriteClubs.clear()
-            this@FavoriteClubFragment.favoriteClubs.addAll(favoriteClubs)
+            this@FavoriteMatchFragment.favoriteClubs.clear()
+            this@FavoriteMatchFragment.favoriteClubs.addAll(favoriteClubs)
         })
 
         clubViewModel.clubs.observe(this, Observer { clubs ->
-            this@FavoriteClubFragment.clubs.clear()
-            this@FavoriteClubFragment.clubs.addAll(clubs)
+            this@FavoriteMatchFragment.clubs.clear()
+            this@FavoriteMatchFragment.clubs.addAll(clubs)
         })
 
         footballViewModel.matches.observe(this, Observer { matches ->
