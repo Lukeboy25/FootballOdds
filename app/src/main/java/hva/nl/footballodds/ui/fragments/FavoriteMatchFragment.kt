@@ -24,12 +24,13 @@ import hva.nl.footballodds.ui.adapters.FootballAdapter
 @RequiresApi(Build.VERSION_CODES.O)
 class FavoriteMatchFragment : Fragment() {
     private val favoriteMatchItems = arrayListOf<FootballMatchesList.Matches>()
+    private val distinctFavoriteMatchItems = arrayListOf<FootballMatchesList.Matches>()
     private val clubs = arrayListOf<Club>()
     private val favoriteClubs = arrayListOf<Club>()
     private lateinit var clubViewModel: ClubViewModel
     private lateinit var footballViewModel: FootballViewModel
 
-    private val favoriteMatchAdapter = FootballAdapter(favoriteMatchItems, clubs) { matchItem ->
+    private val favoriteMatchAdapter = FootballAdapter(distinctFavoriteMatchItems, clubs) { matchItem ->
         (activity as MainActivity).onDetailMatch(matchItem)
     }
 
@@ -72,8 +73,9 @@ class FavoriteMatchFragment : Fragment() {
                         favoriteMatchItems.add(match)
                     }
                 }
-                favoriteMatchAdapter.notifyDataSetChanged()
             }
+            distinctFavoriteMatchItems.addAll(favoriteMatchItems.distinct())
+            favoriteMatchAdapter.notifyDataSetChanged()
         })
     }
 }
