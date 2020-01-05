@@ -14,8 +14,14 @@ import hva.nl.footballodds.api.FootballMatchesList
 import hva.nl.footballodds.model.Club
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import android.app.Activity
+import kotlinx.android.synthetic.main.fragment_add_club.*
+import android.graphics.BitmapFactory
+import android.provider.MediaStore
 
 const val DETAIL_MATCH_CODE = 100
+const val GALLERY_REQUEST_CODE = 200
+lateinit var IMAGE_URL: String
 
 class MainActivity : AppCompatActivity() {
     private val clubs = arrayListOf<Club>()
@@ -68,5 +74,34 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("drawOdd", String.format("%.2f", firstMatchOdds[2]))
         intent.putExtra("date", DateFormatter.formatDutchDateLong(date))
         startActivityForResult(intent, DETAIL_MATCH_CODE)
+    }
+
+    fun pickImageFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+
+        val mimeTypes = arrayOf("image/jpeg", "image/png")
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+
+        startActivityForResult(intent, GALLERY_REQUEST_CODE)
+    }
+
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK)
+            when (requestCode) {
+                GALLERY_REQUEST_CODE -> {
+                    val selectedImage = data?.data
+
+                    val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+                    val cursor = contentResolver.query(selectedImage!!, filePathColumn, null, null, null)
+                    cursor!!.moveToFirst()
+                    val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+                    val encodeImageUrl = cursor.getString(columnIndex)
+                    cursor.close()
+
+                    ivSelectedImage.setImageBitmap(BitmapFactory.decodeFile(encodeImageUrl))
+                    IMAGE_URL = encodeImageUrl
+                }
+            }
     }
 }

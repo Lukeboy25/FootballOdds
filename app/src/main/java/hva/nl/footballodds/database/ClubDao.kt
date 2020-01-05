@@ -6,10 +6,10 @@ import hva.nl.footballodds.model.Club
 
 @Dao
 interface ClubDao {
-    @Query("SELECT * FROM club_table")
+    @Query("SELECT * FROM club_table ORDER BY name ASC")
     fun getAllClubs(): LiveData<List<Club>>
 
-    @Query("SELECT * FROM club_table WHERE is_favorite = 1")
+    @Query("SELECT * FROM club_table WHERE is_favorite = 1 ORDER BY name ASC")
     fun getFavoriteClubs(): LiveData<List<Club>>
 
     @Delete

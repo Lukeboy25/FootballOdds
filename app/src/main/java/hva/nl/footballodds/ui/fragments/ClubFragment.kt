@@ -48,15 +48,6 @@ class ClubFragment : Fragment() {
             this@ClubFragment.clubs.addAll(clubs)
             clubAdapter.notifyDataSetChanged()
         })
-
-
-        /** Uncomment when list of clubs needs to be filled */
-//        viewModel.deleteAllClubs()
-//
-//        for (i in Club.CLUB_NAMES.indices) {
-//            viewModel.addClub(Club(null, Club.CLUB_NAMES[i], Club.CLUB_LOGO_IDS[i], false))
-//        }
-
     }
 
     private fun createItemTouchHelper(): ItemTouchHelper {

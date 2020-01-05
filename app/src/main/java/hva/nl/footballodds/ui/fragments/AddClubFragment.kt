@@ -1,6 +1,7 @@
 package hva.nl.footballodds.ui.fragments
 
 
+import android.Manifest
 import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,7 +15,10 @@ import androidx.navigation.fragment.findNavController
 import hva.nl.footballodds.R
 import hva.nl.footballodds.model.Club
 import hva.nl.footballodds.ui.ClubViewModel
+import hva.nl.footballodds.ui.MainActivity
 import kotlinx.android.synthetic.main.fragment_add_club.*
+import hva.nl.footballodds.ui.IMAGE_URL
+import pub.devrel.easypermissions.EasyPermissions
 
 /**
  * A Fragment for adding a new club.
@@ -37,6 +41,17 @@ class AddClubFragment : Fragment() {
         btnSave.setOnClickListener {
             onAddNewClub()
         }
+
+        btnImagePick.setOnClickListener {
+            EasyPermissions.requestPermissions(this, "Access", 200,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            EasyPermissions.requestPermissions(this, "Access", 200,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+
+            (activity as MainActivity).pickImageFromGallery()
+        }
     }
 
     private fun validateEmptyFields(): Boolean {
@@ -50,7 +65,9 @@ class AddClubFragment : Fragment() {
 
     private fun onAddNewClub() {
         if (validateEmptyFields()) {
-            val club = Club(null, etClubName.text.toString(), R.drawable.logo_groot_adodenhaag, false)
+            val imageUrl = IMAGE_URL
+            val club = Club(null, etClubName.text.toString(), imageUrl, false)
+
             viewModel.addClub(club)
 
             Toast.makeText(activity, "Successfully added a new club: " + club.name, Toast.LENGTH_SHORT).show()

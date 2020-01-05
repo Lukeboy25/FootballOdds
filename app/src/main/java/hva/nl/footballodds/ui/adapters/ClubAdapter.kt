@@ -1,6 +1,7 @@
 package hva.nl.footballodds.ui.adapters
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +40,7 @@ class ClubAdapter(private val clubs: List<Club>, private val onFavoriteClick: (c
 
         fun bind(club: Club) {
             itemView.tvClubName.text = club.name
-            Glide.with(context).load(club.imageUrl).into(itemView.ivClub)
+            Glide.with(context).load(BitmapFactory.decodeFile(club.imageUrl)).into(itemView.ivClub)
 
             if(club.isFavorite!!) {
                 Glide.with(context).load(R.drawable.ic_star_orange_40dp).into(itemView.ivFavorite)
